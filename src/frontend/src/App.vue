@@ -47,7 +47,7 @@ export default {
         this.$vuetify.theme.dark = true;
 
         console.log("Getting devices...");
-        axios.get('http://127.0.0.1:5000/api/devices')
+        axios.get('http://192.168.86.33:5001/api/devices')
             .then((response) => {
                 console.log("Got " + response.data.length + " devices.");
                 for (var i = 0; i < response.data.length; i++) {

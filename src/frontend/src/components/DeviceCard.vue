@@ -41,7 +41,7 @@ export default {
     methods: {
         toggleDevice() {
             console.log("Toggling Device");
-            axios.post('http://127.0.0.1:5000/api/devices/toggle', {
+            axios.post('http://192.168.86.33:5001/api/devices/toggle', {
                     ip: this.ip
                 })
                 .then((response) => {
