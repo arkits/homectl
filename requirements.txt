@@ -1,0 +1,3 @@
+pyHS100==0.3.5
+Flask==1.1.1
+python-dotenv==0.10.3
