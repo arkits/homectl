@@ -11,10 +11,14 @@
                     </v-list-item-content>
 
                     <div v-if="deviceStatus == true">
-                        <v-list-item-avatar size="80" color="green" @click="toggleDevice()">ON</v-list-item-avatar>
+                        <v-btn class="mx-2" fab dark large color="green" @click="toggleDevice()">
+                            ON
+                        </v-btn>
                     </div>
                     <div v-else>
-                        <v-list-item-avatar size="80" color="orange" @click="toggleDevice()">OFF</v-list-item-avatar>
+                        <v-btn class="mx-2" fab dark large color="grey darken-4" @click="toggleDevice()">
+                            OFF
+                        </v-btn>
                     </div>
                 </v-list-item>
 
@@ -26,6 +30,8 @@
 </template>
 
 <script>
+import Config from '@/config';
+
 const axios = require('axios');
 
 export default {
@@ -41,11 +47,10 @@ export default {
     methods: {
         toggleDevice() {
             console.log("Toggling Device");
-            axios.post('http://192.168.86.33:5001/api/devices/toggle', {
+            axios.post(Config.backendApi + '/api/devices/toggle', {
                     ip: this.ip
                 })
                 .then((response) => {
-                    console.log(response);
                     this.real_is_on = response.data.is_on;
                 })
                 .catch(function (error) {
@@ -53,9 +58,9 @@ export default {
                 });
         }
     },
-    computed:{
-        deviceStatus(){
-            if(this.real_is_on === null){
+    computed: {
+        deviceStatus() {
+            if (this.real_is_on === null) {
                 return this.is_on;
             } else {
                 return this.real_is_on;

@@ -9,14 +9,14 @@
 
     <v-content>
         <br>
-        <div v-if="devices.length == 0">
+        <div v-if="is_loading">
             <center>
                 <v-progress-circular :size="50" color="primary" indeterminate></v-progress-circular>
             </center>
         </div>
         <div v-else>
-            <div v-for="item in devices" v-bind:key="item.id">
-                <DeviceCard v-bind:alias=item.alias v-bind:ip=item.ip v-bind:is_on=item.is_on />
+            <div v-for="(value, name) in devices" v-bind:key="name">
+                <DeviceCard v-bind:alias=value.alias v-bind:ip=value.ip v-bind:is_on=value.is_on />
             </div>
         </div>
 
@@ -25,6 +25,9 @@
 </template>
 
 <script>
+
+import Config from '@/config';
+
 const axios = require('axios');
 
 import DeviceCard from "./components/DeviceCard";
@@ -39,7 +42,8 @@ export default {
     },
     data: function () {
         return {
-            devices: []
+            devices: {},
+            is_loading: true
         }
     },
     created() {
@@ -47,19 +51,19 @@ export default {
         this.$vuetify.theme.dark = true;
 
         console.log("Getting devices...");
-        axios.get('http://192.168.86.33:5001/api/devices')
+        axios.get(Config.backendApi + '/api/devices')
             .then((response) => {
+                this.is_loading = false;
                 console.log("Got " + response.data.length + " devices.");
                 for (var i = 0; i < response.data.length; i++) {
                     var device = response.data[i];
-                    device.id = i;
-                    console.log(device)
-                    this.devices.push(device);
+                    this.devices[device.ip] = device;
                 }
             })
             .catch(function (error) {
                 console.log(error);
             });
+
 
     }
 };
