@@ -1,0 +1,24 @@
+---
+- name: update home-dash
+  shell: git pull
+  args:
+    chdir: /home/pi/home-dash/
+  register: out
+- debug:
+    var: out
+
+- name: kill backend
+  shell: ./kill_backend.sh
+  args:
+    chdir: /home/pi/home-dash/scripts
+  register: out
+- debug:
+    var: out
+
+- name: run backend
+  shell: ./run_backend.sh
+  args:
+    chdir: /home/pi/home-dash/scripts
+  register: out
+- debug:
+    var: out
