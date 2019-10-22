@@ -1,0 +1,6 @@
+[raspberrypi]
+192.168.86.33
+
+[raspberrypi:vars]
+ansible_user=pi
+ansible_ssh_pass=hunter2

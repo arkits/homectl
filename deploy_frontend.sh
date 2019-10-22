@@ -3,19 +3,32 @@
 
 set -e
 
+HOME=`pwd`
+
 # cd to frontend dir
 cd src/frontend/
- 
-# npm install
 
+# switch config
+echo "==> switching prod config"
+rm src/config.js
+cp src/configProd.js src/config.js
+ 
 # build a deployment ready version
-echo "==> Building dist"
+echo "==> building dist"
 npm run build
 
+# switch config
+echo "==> reseting back to dev config"
+rm src/config.js
+cp src/configDev.js src/config.js
+
 # zip it up
-echo "==> Zipping it up"
+echo "==> zipping it up"
 tar czvf home-dash-frontend.tar.gz dist/
 
-# copy to host
-echo "==> scp it"
-scp home-dash-frontend.tar.gz  pi@192.168.86.33:~/home-dash-frontend
+# copy to frontend
+echo "==> copy home-dash-frontend.tar.gz to ansible dir"
+mv home-dash-frontend.tar.gz ../../deployment/ansible/roles/deploy_frontend/files
+
+cd $HOME/deployment/ansible
+ansible-playbook deploy_frontend.yml
