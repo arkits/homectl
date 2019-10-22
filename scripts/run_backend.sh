@@ -1,5 +1,5 @@
 #!/bin/bash
-# run_server.sh
+# run_backend.sh
 
 cd ..
 source .env/bin/activate
