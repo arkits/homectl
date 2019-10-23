@@ -11,8 +11,6 @@
     </v-app-bar>
     <v-content>
         <br> <br>
-        <QuickReach />
-        <br>
         <DeviceList />
     </v-content>
 </v-app>
@@ -20,13 +18,12 @@
 
 <script>
 import DeviceList from "./components/DeviceList";
-import QuickReach from "./components/QuickReach";
+
 
 export default {
     name: "App",
     components: {
-        DeviceList,
-        QuickReach
+        DeviceList
     },
     created() {
         this.$vuetify.theme.dark = true;
