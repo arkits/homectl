@@ -9,17 +9,17 @@
                         <v-list-item-subtitle>{{ip}}</v-list-item-subtitle>
                     </v-list-item-content>
 
-                    <div v-if="deviceStatus == true">
-                        <v-btn class="mx-2" fab dark large color="green" @click="toggleDevice()">
+                    <div v-if="is_on == true">
+                        <v-btn class="mx-2" fab dark large color="green darken-2" @click="toggleDevice()">
                             ON
                         </v-btn>
                     </div>
-                    <div v-if="deviceStatus == false">
-                        <v-btn class="mx-2" fab dark large color="grey darken-4" @click="toggleDevice()">
+                    <div v-if="is_on == false">
+                        <v-btn class="mx-2" fab dark large color="grey darken-3" @click="toggleDevice()">
                             OFF
                         </v-btn>
                     </div>
-                    <div v-if="deviceStatus === null">
+                    <div v-if="is_on === null">
                         <v-progress-circular indeterminate color="grey"></v-progress-circular>
                     </div>
 
@@ -43,29 +43,24 @@ export default {
         'is_on'
     ],
     data: () => ({
-        real_is_on: null
     }),
     methods: {
         toggleDevice() {
-            console.log("Toggling Device");
+            // console.log("Single Toggling device - ", this.alias);
             axios.post(Config.backendApi + '/api/devices/toggle', {
                     ip: this.ip
                 })
                 .then((response) => {
-                    this.real_is_on = response.data.is_on;
+                    var device = {
+                        'alias': this.alias,
+                        'ip': this.ip,
+                        'is_on': response.data.is_on
+                    };
+                    this.$store.commit("addDevice", device);
                 })
                 .catch(function (error) {
                     console.log(error);
                 });
-        }
-    },
-    computed: {
-        deviceStatus() {
-            if (this.real_is_on === null) {
-                return this.is_on;
-            } else {
-                return this.real_is_on;
-            }
         }
     }
 };

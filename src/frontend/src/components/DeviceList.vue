@@ -56,7 +56,6 @@ export default {
 
         axios.get(Config.backendApi + '/api/devices/refresh')
             .then((response) => {
-                this.$store.commit("clearDevices");
                 for (var device of response.data) {
                     this.$store.commit("addDevice", device);
                 }
