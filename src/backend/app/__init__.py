@@ -9,6 +9,8 @@ class customFlask(Flask):
     def process_response(self, response):
         response.headers['server'] = SERVER_NAME
         response.headers['Access-Control-Allow-Origin'] = "*"
+        response.headers['Access-Control-Allow-Headers'] = "*"
+        response.headers['Access-Control-Request-Headers'] = "*"
         return(response)
 
 app = customFlask(__name__)
