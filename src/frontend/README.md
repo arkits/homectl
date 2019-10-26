@@ -1,4 +1,4 @@
-# Home-Dashboard Frontend
+# Smarthome-Dashboard Frontend
 
 ## Project setup
 ```
