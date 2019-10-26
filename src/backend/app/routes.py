@@ -22,10 +22,25 @@ def devices_handler():
     dev = devices.getDevices()
     return jsonify(dev)
 
+@app.route('/api/devices/power', methods=['POST'])
+def power_handler():
+    received_data = json.loads(request.data)
+    response = jsonify(
+        devices.setDevicePower(
+            received_data['ip'], 
+            received_data['is_on']
+            )
+        )
+    return response
+
 @app.route('/api/devices/toggle', methods=['POST'])
 def toggle_handler():
     received_data = json.loads(request.data)
-    response = jsonify(devices.toggleDevice(received_data['ip']))
+    response = jsonify(
+        devices.toggleDevicePower(
+            received_data['ip']
+            )
+        )
     return response
 
 @app.route('/api/devices/refresh', methods=['GET'])

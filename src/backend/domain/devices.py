@@ -28,7 +28,8 @@ def refreshDevices():
         shelf.close()
     return getDevices()
 
-def toggleDevice(ip):
+# Toggle Device's power state
+def toggleDevicePower(ip):
     plug = pyHS100.SmartPlug(ip)
     with shelve.open('db/devices') as shelf:
         device = shelf[ip]
@@ -36,6 +37,21 @@ def toggleDevice(ip):
             plug.turn_on()
             device['is_on'] = True
         elif plug.state == 'ON':
+            plug.turn_off()
+            device['is_on'] = False
+        shelf[device['ip']] = device
+        shelf.close()
+    return device
+
+# Set Device's power state
+def setDevicePower(ip, is_on):
+    plug = pyHS100.SmartPlug(ip)
+    with shelve.open('db/devices') as shelf:
+        device = shelf[ip]
+        if is_on:
+            plug.turn_on()
+            device['is_on'] = True
+        else:
             plug.turn_off()
             device['is_on'] = False
         shelf[device['ip']] = device
