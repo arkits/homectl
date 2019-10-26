@@ -6,11 +6,8 @@ from flask import Flask
 from flask import jsonify
 from flask import request
 from flask import make_response
-from flask_cors import CORS
 
 import json
-
-CORS(app)
 
 @app.route('/')
 @app.route('/api')
