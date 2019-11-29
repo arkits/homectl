@@ -1,6 +1,8 @@
-# Smarthome-Dashboard
+# Smarthome Dashboard
 
 ## About
+
+<img src="https://github.com/arkits/smarthome-dashboard/blob/master/docs/frontend.png?raw=true"></img>
 
 Smarthome-Dashboard is self-hosted home automation / control application. The movitation of this project is to create frontend for TP-Link Kasa smart-plugs. 
 
