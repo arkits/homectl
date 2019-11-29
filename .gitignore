@@ -129,3 +129,4 @@ dmypy.json
 *.retry
 .config/configstore/update-notifier-npm.json
 .DS_Store
+deployment/ansible/hosts
