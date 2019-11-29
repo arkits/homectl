@@ -47,8 +47,9 @@ export default {
     methods: {
         toggleDevice() {
             // console.log("Single Toggling device - ", this.alias);
-            axios.post(Config.backendApi + '/api/devices/toggle', {
-                    ip: this.ip
+            axios.post(Config.backendApi + '/api/devices/power', {
+                    ip: this.ip,
+                    is_on: !this.is_on
                 })
                 .then((response) => {
                     var device = {
