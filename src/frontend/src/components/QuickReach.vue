@@ -1,8 +1,8 @@
 <template>
 <v-card class="mx-auto" max-width="344">
     <v-card-actions class="d-flex justify-center">
-        <v-btn class="plex-button" text @click="toggleDevice(true)">all_on</v-btn>
-        <v-btn class="plex-button" text @click="toggleDevice(false)">all_off</v-btn>
+        <v-btn class="plex-button" text @click="toggleDevice(true)">all on</v-btn>
+        <v-btn class="plex-button" text @click="toggleDevice(false)">all off</v-btn>
     </v-card-actions>
 </v-card>
 </template>
@@ -24,21 +24,19 @@ export default {
 
                 let device = devices[key];
 
-                if (deviceState != device.is_on) {
+                axios.post(Config.backendApi + '/api/devices/power', {
+                        ip: device.ip,
+                        is_on: deviceState
 
-                    axios.post(Config.backendApi + '/api/devices/toggle', {
-                            ip: device.ip
-                        })
-                        .then((response) => {
-                            // console.log("Batch Toggled device - ", device.alias);
-                            device.is_on = response.data.is_on;
-                            this.$store.commit("addDevice", device);
-                        })
-                        .catch(function (error) {
-                            console.log(error);
-                        });
-
-                }
+                    })
+                    .then((response) => {
+                        // console.log("Batch Toggled device - ", device.alias);
+                        device.is_on = response.data.is_on;
+                        this.$store.commit("addDevice", device);
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
 
             }
 

@@ -2,9 +2,8 @@
 <v-app>
     <v-app-bar app class="green darken-3">
         <v-toolbar-title class="headline">
-            <span class="org-title">~/</span>
             <span>
-                <a href="/" class="app-title white--text">smarthome-dashboard</a>
+                <a href="/" class="app-title white--text">Smarthome Dashboard</a>
             </span>
         </v-toolbar-title>
         <v-spacer></v-spacer>
@@ -32,12 +31,6 @@ export default {
 </script>
 
 <style>
-.org-title {
-    font-family: "IBM Plex Mono", monospace;
-    font-weight: 300;
-    font-style: italic;
-}
-
 .plex-button {
     font-family: "IBM Plex Mono", monospace;
     font-weight: 700;
