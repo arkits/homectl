@@ -128,3 +128,4 @@ dmypy.json
 .pyre/
 *.retry
 .config/configstore/update-notifier-npm.json
+.DS_Store
