@@ -1,18 +1,22 @@
-const winston = require('winston');
+var log4js = require('log4js');
 
-const myFormat = winston.format.printf(({level, message, timestamp }) => {
-    return `${timestamp} [${level}] ${message}`;
-  });
+log4js.configure({
+    appenders: {
+        out: {
+            type: 'stdout',
+            layout: {
+                type: 'pattern',
+                pattern: '[%d] [%[%p%]]: %m'
+            }
+        }
+    },
+    categories: {
+        default: {
+            appenders: ['out'],
+            level: 'debug',
+            enableCallStack: true
+        }
+    }
+});
 
-const logger = (module.exports = winston.createLogger({
-    transports: [new winston.transports.Console()],
-    format: winston.format.combine(
-        winston.format.splat(),
-        winston.format.colorize(),
-        winston.format.timestamp(),
-        myFormat
-    )
-}));
-
-
-module.exports = logger;
+module.exports = log4js;
