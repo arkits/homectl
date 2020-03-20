@@ -6,7 +6,7 @@ const storage = require('../db/storage');
 async function getDevices(req, res) {
     let devices = await storage.storage.getItem('devices');
 
-    logger.info('getDevices: Devices in Storage - %s', devices);
+    // logger.debug('getDevices: Devices in Storage - ', devices);
 
     let marshalledDevices = [];
 
@@ -14,7 +14,7 @@ async function getDevices(req, res) {
         marshalledDevices.push(devices[d]);
     }
 
-    logger.info('getDevices: Returning - %s', marshalledDevices);
+    logger.info('getDevices: Returning - ', marshalledDevices);
     res.json(marshalledDevices);
 
     return;
