@@ -16,11 +16,12 @@ function refreshKasa() {
         d.alias = sysInfo.alias;
         d.id = sysInfo.deviceId;
         d.is_on = powerState;
+        d.type = "kasa";
         d.domain = {
             ip: device.host
         }
 
-        logger.info('Refreshed name=%s is_on=%s', d.alias, d.is_on);
+        logger.info('[kasa] Refreshed name=%s is_on=%s', d.alias, d.is_on);
         storage.updateDevice(d);
     });
 }
