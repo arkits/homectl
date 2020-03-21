@@ -56,6 +56,46 @@ async function refreshBulb(bulb) {
     return refreshedBulb;
 }
 
+/**
+ * setTuya:
+ * Sets the power state of a Tuya Device.
+ * If is_on is null, the power state is toggled.
+ * @param {*} device 
+ * @param {*} is_on 
+ */
+async function setTuya(device, is_on) {
+    try {
+        let tuyaDevice = new TuyAPI({
+            id: device['id'],
+            key: device['domain']['key']
+        });
+
+        await tuyaDevice.find();
+
+        await tuyaDevice.connect();
+
+        if(is_on == null){
+            status = await tuyaDevice.get();
+            await tuyaDevice.set({ set: !status });
+        } else {
+            await tuyaDevice.set({ set: is_on });
+        }
+
+        status = await tuyaDevice.get();
+
+        device.is_on = status;
+
+        tuyaDevice.disconnect();
+    } catch (error) {
+        logger.error(error);
+    }
+
+    storage.updateDevice(device);
+
+    return device;
+}
+
 module.exports = {
-    refreshTuya
+    refreshTuya,
+    setTuya
 };
