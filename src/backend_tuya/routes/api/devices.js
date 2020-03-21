@@ -6,6 +6,8 @@ router.get('/', deviceApi.getDevices);
 
 router.get('/refresh', deviceApi.refreshDevices);
 
-router.get('/clear', deviceApi.clearDevices);
+router.delete('/clear', deviceApi.clearDevices);
+
+router.post('/power', deviceApi.setDevice);
 
 module.exports = router;
