@@ -27,9 +27,15 @@ async function clearDevices() {
     return;
 }
 
+async function getDeviceFromId(id) {
+    let devices = await storage.getItem('devices');
+    return devices[id];
+}
+
 module.exports = {
     storage,
     initializeStorage,
     updateDevice,
-    clearDevices
+    clearDevices,
+    getDeviceFromId
 };
