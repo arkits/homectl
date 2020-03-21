@@ -4,13 +4,16 @@ const TuyAPI = require('tuyapi');
 const tuyaPayloads = require('../tools/tuya_payloads');
 const bulbsConfig = require('../config/bulbs');
 const storage = require('../db/storage');
+const { Device } = require('../models/device');
 
-function refreshBulbs() {
-    logger.info('Refreshing Bulbs');
-
+function refreshTuya() {
     for (bulb of bulbsConfig) {
         refreshBulb(bulb).then(async refreshedBulb => {
-            logger.info('Refreshed name=%s is_on=%s', refreshedBulb.alias, refreshedBulb.is_on);
+            logger.info(
+                '[tuya] Refreshed name=%s is_on=%s',
+                refreshedBulb.alias,
+                refreshedBulb.is_on
+            );
             storage.updateDevice(refreshedBulb);
         });
     }
@@ -19,18 +22,18 @@ function refreshBulbs() {
 }
 
 async function refreshBulb(bulb) {
-    let refreshedBulb = {
-        alias: bulb['name'],
-        id: bulb['device_id'],
-        domain: {
-            key: bulb['key']
-        }
+    let refreshedBulb = new Device();
+    refreshedBulb.alias = bulb['name'];
+    refreshedBulb.id = bulb['device_id'];
+    refreshedBulb.domain = {
+        key: bulb['key']
     };
+    refreshedBulb.type = 'tuya';
 
     try {
         const device = new TuyAPI({
-            id: refreshedBulb['id'],
-            key: refreshedBulb['domain']['key']
+            id: refreshedBulb.id,
+            key: refreshedBulb.domain.key
         });
 
         await device.find();
@@ -54,5 +57,5 @@ async function refreshBulb(bulb) {
 }
 
 module.exports = {
-    refreshBulbs
+    refreshTuya
 };
