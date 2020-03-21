@@ -1,8 +1,10 @@
 class Device {
     constructor() {
-        this.name;
-        this.ip;
-        this.state;
+        this.alias = null;
+        this.id = null;
+        this.is_on = null;
+        this.type = null;
+        this.domain = {};
     }
 }
 
