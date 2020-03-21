@@ -1,9 +1,9 @@
 const logger = require('log4js').getLogger('main');
-const { refreshTuya } = require('./tuya');
-const { refreshKasa } = require('./kasa');
+const { refreshTuya, setTuya } = require('./tuya');
+const { refreshKasa, setKasa } = require('./kasa');
 const storage = require('../db/storage');
 
-async function getDevices(req, res) {
+async function getDevices(_, res) {
     let devices = await storage.storage.getItem('devices');
 
     let marshalledDevices = [];
@@ -18,7 +18,7 @@ async function getDevices(req, res) {
     return;
 }
 
-async function refreshDevices(req, res) {
+async function refreshDevices(_, res) {
     logger.info('Started refreshDevices');
 
     refreshTuya();
@@ -31,8 +31,7 @@ async function refreshDevices(req, res) {
     return;
 }
 
-async function clearDevices(req, res) {
-
+async function clearDevices(_, res) {
     await storage.clearDevices();
 
     res.json({
@@ -42,8 +41,29 @@ async function clearDevices(req, res) {
     return;
 }
 
+async function setDevice(req, res) {
+    let is_on = req.body.is_on;
+    let device = await storage.getDeviceFromId(req.body.id);
+
+    logger.info('In setDevice - device=%s is_on=%s', device, is_on);
+
+    switch (device.type) {
+        case 'kasa':
+            device = await setKasa(device, is_on);
+            break;
+        case 'tuya':
+            device = await setTuya(device, is_on);
+            break;
+    }
+
+    res.json(device);
+
+    return;
+}
+
 module.exports = {
     getDevices,
     refreshDevices,
-    clearDevices
+    clearDevices,
+    setDevice
 };
