@@ -14,7 +14,6 @@ async function getDevices(_, res) {
 
     logger.info('getDevices: Returning - ', marshalledDevices);
     res.json(marshalledDevices);
-
     return;
 }
 
@@ -57,7 +56,34 @@ async function setDevice(req, res) {
     }
 
     res.json(device);
+    return;
+}
 
+async function batchDevices(req, res) {
+    let is_on = req.body.is_on;
+
+    logger.info('In batchDevices - is_on=%s', is_on);
+
+    let devices = await storage.storage.getItem('devices');
+
+    let devicesToReturn = [];
+
+    for (var d in devices) {
+        let device = devices[d];
+
+        switch (device.type) {
+            case 'kasa':
+                device = await setKasa(device, is_on);
+                break;
+            case 'tuya':
+                device = await setTuya(device, is_on);
+                break;
+        }
+
+        devicesToReturn.push(device);
+    }
+
+    res.json(devicesToReturn);
     return;
 }
 
@@ -65,5 +91,6 @@ module.exports = {
     getDevices,
     refreshDevices,
     clearDevices,
-    setDevice
+    setDevice,
+    batchDevices
 };

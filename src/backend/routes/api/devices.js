@@ -10,4 +10,6 @@ router.delete('/clear', deviceApi.clearDevices);
 
 router.post('/power', deviceApi.setDevice);
 
+router.post('/power/batch', deviceApi.batchDevices);
+
 module.exports = router;
