@@ -61,11 +61,9 @@ async function setDevice(req, res) {
 
 async function batchDevices(req, res) {
     let is_on = req.body.is_on;
-
     logger.info('In batchDevices - is_on=%s', is_on);
 
     let devices = await storage.storage.getItem('devices');
-
     let devicesToReturn = [];
 
     for (var d in devices) {
