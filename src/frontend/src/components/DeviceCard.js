@@ -18,6 +18,10 @@ function ToggleButton(device) {
       .then(function(response) {
         device.device.is_on = response.data.is_on;
         setIsLoading(false);
+      })
+      .catch(function(error) {
+        console.error("Caught error in toggleDevice!", error);
+        setIsLoading(false);
       });
   };
 
@@ -65,7 +69,7 @@ function DeviceCard(device) {
                 fontSize: "25px",
                 fontWeight: "bold",
                 fontFamily: "Roboto",
-                textTransform: "capitalize",
+                textTransform: "capitalize"
               }}
             >
               {device.device.alias}
