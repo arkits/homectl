@@ -64,22 +64,25 @@ async function batchDevices(req, res) {
     logger.info('In batchDevices - is_on=%s', is_on);
 
     let devices = await storage.storage.getItem('devices');
-    let devicesToReturn = [];
+
+    let deviceTogglePromises = [];
 
     for (var d in devices) {
         let device = devices[d];
 
         switch (device.type) {
             case 'kasa':
-                device = await setKasa(device, is_on);
+                device = setKasa(device, is_on);
                 break;
             case 'tuya':
-                device = await setTuya(device, is_on);
+                device = setTuya(device, is_on);
                 break;
         }
 
-        devicesToReturn.push(device);
+        deviceTogglePromises.push(device);
     }
+
+    let devicesToReturn = await Promise.all(deviceTogglePromises);
 
     res.json(devicesToReturn);
     return;
