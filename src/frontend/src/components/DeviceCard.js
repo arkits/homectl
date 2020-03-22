@@ -16,22 +16,39 @@ function ToggleButton(device) {
         id: device.device.id
       })
       .then(function(response) {
+        device.device.is_on = response.data.is_on;
         setIsLoading(false);
       });
   };
 
   if (isLoading) {
     return (
-      <div style={{ marginRight: "75px" }}>
+      <div
+        style={{
+          marginRight: "45px",
+          paddingRight: "20px",
+          paddingTop: "10px"
+        }}
+      >
         <Loading animate />
       </div>
     );
   } else {
     return (
-      <div style={{ marginRight: "40px", marginTop: "20px" }}>
-        <Button animate onClick={toggleDevice}>
-          ON
-        </Button>
+      <div
+        onClick={toggleDevice}
+        style={{ paddingRight: "20px", paddingTop: "20px" }}
+      >
+        <Frame
+          show
+          animate={true}
+          corners={0}
+          layer={device.device.is_on ? "secondary" : "primary"}
+        >
+          <div style={{ display: "flex", padding: "20px 30px" }}>
+            {device.device.is_on ? "☀️" : "🌑"}
+          </div>
+        </Frame>
       </div>
     );
   }
@@ -41,10 +58,27 @@ function DeviceCard(device) {
   return (
     <Row col s={12} m={6} offset={["m3"]}>
       <Frame show animate={true} level={3} corners={4} layer="primary">
-        <div style={{ display: "flex", padding: "20px 20px" }}>
-          <div style={{ flexGrow: "1" }}>
-            <div style={{ fontSize: "27px" }}>{device.device.alias}</div>
-            <div>{device.device.type}</div>
+        <div style={{ display: "flex", height: "115px" }}>
+          <div style={{ flexGrow: "1", padding: "20px 20px" }}>
+            <div
+              style={{
+                fontSize: "25px",
+                fontWeight: "bold",
+                fontFamily: "Roboto"
+              }}
+            >
+              {device.device.alias}
+            </div>
+            <div
+              style={{
+                fontSize: "19px",
+                fontWeight: "lighter",
+                textTransform: "capitalize",
+                fontFamily: "Roboto"
+              }}
+            >
+              {device.device.type}
+            </div>
           </div>
           <div>
             <ToggleButton device={device.device} />

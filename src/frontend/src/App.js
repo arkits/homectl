@@ -13,10 +13,11 @@ function App() {
                 <h2
                   style={{
                     margin: 0,
-                    fontFamily: "IBM Plex Mono"
+                    fontFamily: "Space Mono",
+                    fontStyle: "italic"
                   }}
                 >
-                  ~/Home-Dashboard
+                  ~/home-dashboard
                 </h2>
               </Header>
             </div>
