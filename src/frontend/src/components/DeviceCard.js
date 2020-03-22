@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Frame, Button, Loading } from "arwes";
+import { Row, Frame, Loading } from "arwes";
 import "axios";
 import { config } from "../config";
 
