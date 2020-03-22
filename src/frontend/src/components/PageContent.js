@@ -1,6 +1,7 @@
 import React from "react";
-import { Loading } from "arwes";
 import "axios";
+import { Loading } from "arwes";
+import QuickSwitch from "./QuickSwitch";
 import DeviceCard from "./DeviceCard";
 import { config } from "../config";
 
@@ -44,6 +45,7 @@ function PageContent() {
     } else {
       return (
         <div className="PageContent" style={{ paddingTop: "30px" }}>
+          <QuickSwitch />
           {devices.map((device, key) => (
             <DeviceCard device={device} key={key} />
           ))}
