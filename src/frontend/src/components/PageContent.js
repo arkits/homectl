@@ -2,6 +2,7 @@ import React from "react";
 import { Loading } from "arwes";
 import "axios";
 import DeviceCard from "./DeviceCard";
+import { config } from "../config";
 
 function PageContent() {
   const axios = require("axios");
@@ -13,7 +14,7 @@ function PageContent() {
   React.useEffect(() => {
     async function fetchData() {
       try {
-        let result = await axios.get("http://127.0.0.1:8421/api/devices/");
+        let result = await axios.get(config.api_base + "/api/devices/");
         setDevices(result.data);
         setIsLoading(false);
       } catch (error) {

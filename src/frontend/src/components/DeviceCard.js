@@ -1,6 +1,7 @@
 import React from "react";
 import { Row, Frame, Button, Loading } from "arwes";
 import "axios";
+import { config } from "../config";
 
 function ToggleButton(device) {
   const axios = require("axios");
@@ -8,11 +9,10 @@ function ToggleButton(device) {
   const [isLoading, setIsLoading] = React.useState(false);
 
   const toggleDevice = () => {
-
     setIsLoading(true);
 
     axios
-      .post("http://127.0.0.1:8421/api/devices/power", {
+      .post(config.api_base + "/api/devices/power", {
         id: device.device.id
       })
       .then(function(response) {
