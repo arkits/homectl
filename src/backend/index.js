@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 var log4js = require('./tools/logger');
 const storage = require('./db/storage');
@@ -8,6 +9,7 @@ var port = 8421;
 
 var logger = log4js.getLogger('main');
 
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(bodyParser.raw());
