@@ -64,7 +64,8 @@ function DeviceCard(device) {
               style={{
                 fontSize: "25px",
                 fontWeight: "bold",
-                fontFamily: "Roboto"
+                fontFamily: "Roboto",
+                textTransform: "capitalize",
               }}
             >
               {device.device.alias}
