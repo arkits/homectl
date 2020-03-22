@@ -10,15 +10,17 @@ function App() {
           <div style={{ padding: 20 }}>
             <div>
               <Header animate>
-                <h2
+                <h1
                   style={{
                     margin: 0,
                     fontFamily: "Space Mono",
-                    fontStyle: "italic"
+                    fontStyle: "italic",
+                    textAlign: "center",
+                    paddingBottom: "10px"
                   }}
                 >
                   ~/home-dashboard
-                </h2>
+                </h1>
               </Header>
             </div>
             <PageContent />
