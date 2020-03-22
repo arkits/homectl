@@ -49,7 +49,7 @@ function ToggleButton(device) {
           corners={0}
           layer={device.device.is_on ? "secondary" : "primary"}
         >
-          <div style={{ display: "flex", padding: "20px 30px" }}>
+          <div style={{ padding: "5px 25px", fontSize: "40px" }}>
             {device.device.is_on ? "☀️" : "🌑"}
           </div>
         </Frame>
