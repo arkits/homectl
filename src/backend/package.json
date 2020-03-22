@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index",
-    "dev": "nodemon index"
+    "start": "node home-dash.js",
+    "dev": "nodemon home-dash.js"
   },
   "author": "",
   "license": "ISC",
