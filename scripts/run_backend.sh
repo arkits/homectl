@@ -3,8 +3,8 @@
 
 cd ../src/backend
 
-echo ">>> running npm install"
-npm install
+# echo ">>> running npm install"
+# npm install
 
 echo ">>> running backend!"
-nohup npm run start > ../../logs/smarthome-dashboard-backend.log 2>&1 & 
+pm2 start home-dash.js 
